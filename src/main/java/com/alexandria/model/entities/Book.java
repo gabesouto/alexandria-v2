@@ -14,7 +14,6 @@ public class Book extends IdentityGenerator<UUID> {
 
   private String title;
   private String authorName;
-  private String genre;
   private Date publishedDate;
 
   @ManyToOne
@@ -25,4 +24,6 @@ public class Book extends IdentityGenerator<UUID> {
   @JoinColumn(name = "publisher_id")
   private Publisher publisher;
 
+  @ManyToMany(mappedBy = "books")
+  private List<Genre> genres = new ArrayList<>();
 }
