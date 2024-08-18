@@ -16,16 +16,19 @@ public abstract class BaseEntity<ID> implements Serializable {
   @Version
   @Column(nullable = false)
   protected Integer version;
+
   @Column
   @CreatedBy
   protected String createdBy;
+
   @Column
   @Temporal(TemporalType.TIMESTAMP)
-//    @CreatedDate
   protected Date createdAt;
+
   @Column
   @LastModifiedBy
   protected String updatedBy;
+
   @Column
   @Temporal(TemporalType.TIMESTAMP)
   @LastModifiedDate
