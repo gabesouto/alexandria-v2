@@ -4,17 +4,13 @@ import jakarta.persistence.*;
 import java.util.*;
 import lombok.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
-public class User extends BaseEntity<UUID> {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
+public class User extends IdentityGenerator<UUID> {
 
   private String fullName;
   private String email;
