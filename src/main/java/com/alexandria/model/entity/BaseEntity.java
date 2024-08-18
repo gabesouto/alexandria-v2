@@ -1,4 +1,4 @@
-package com.alexandria.model.entities;
+package com.alexandria.model.entity;
 
 import jakarta.persistence.Version;
 import jakarta.persistence.*;
