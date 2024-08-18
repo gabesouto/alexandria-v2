@@ -13,9 +13,13 @@ import lombok.*;
 public class Book extends IdentityGenerator<UUID> {
 
   private String title;
-  private String author;
   private String authorName;
   private String publisher;
   private String genre;
   private Date publishedDate;
+
+  @ManyToOne
+  @JoinColumn(name = "author_id")
+  private Author author;
+
 }
