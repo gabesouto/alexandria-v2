@@ -15,7 +15,7 @@ public class CrudServiceImpl<L extends JpaRepository<T, ID>, T extends BaseEntit
 
   @Override
   public List<T> findAll() {
-    return List.of();
+    return repository.findAll();
   }
 
   @Override
