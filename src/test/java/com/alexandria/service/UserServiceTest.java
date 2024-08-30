@@ -26,24 +26,21 @@ public class UserServiceTest {
   @Test
   @DisplayName("Should return all users without passwords")
   void getUsers() {
-    // Arrange: Create sample users with passwords
-    User user1 = new User(1L, "John Doe", "john.doe@example.com", "password123");
-    User user2 = new User(2L, "Jane Smith", "jane.smith@example.com", "password456");
 
-    // Mock the repository's behavior to return the users
+    User user1 = new User("John Doe", "john.doe@example.com", "password456", "johndoe");
+    User user2 = new User("Jane Smith", "jane.smith@example.com", "password456", "janesmith");
+
     when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
 
-    // Act: Call the service method to get the users
     List<UserDto> result = userService.getAllUsersWithoutPasswords();
 
-    // Assert: Verify that the returned users have their passwords removed
     assertEquals(2, result.size());
     assertEquals("John Doe", result.get(0).getFullName());
     assertEquals("john.doe@example.com", result.get(0).getEmail());
-    assertEquals(null, result.get(0).getPassword()); // Password should be null
+    assertEquals(null, result.get(0).getPassword());
 
     assertEquals("Jane Smith", result.get(1).getFullName());
     assertEquals("jane.smith@example.com", result.get(1).getEmail());
-    assertEquals(null, result.get(1).getPassword()); // Password should be null
+    assertEquals(null, result.get(1).getPassword());
   }
 }
