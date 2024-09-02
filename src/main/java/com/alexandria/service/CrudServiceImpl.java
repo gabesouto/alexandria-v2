@@ -9,9 +9,13 @@ import org.springframework.data.jpa.repository.*;
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class CrudServiceImpl<L extends JpaRepository<T, ID>, T extends BaseEntity<ID>, ID>
     implements CrudService<T, ID> {
+  
+  protected L repository;
 
   @Autowired
-  protected L repository;
+  public CrudServiceImpl(L repository) {
+    this.repository = repository;
+  }
 
   @Override
   public List<T> findAll() {

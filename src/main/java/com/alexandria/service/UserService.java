@@ -9,6 +9,10 @@ import org.springframework.stereotype.*;
 public class UserService extends CrudServiceImpl<UserRepository, User, UUID> {
 
 
+  public UserService(UserRepository repository) {
+    super(repository);
+  }
+
   public List<User> getUsers() {
     return findAll();
   }
