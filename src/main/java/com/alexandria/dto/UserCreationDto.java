@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Data
+@AllArgsConstructor
 public class UserCreationDto {
 
   @NotBlank(message = "Full name is mandatory")

@@ -4,6 +4,7 @@ package com.alexandria.dto;
 import java.util.*;
 import lombok.*;
 
+@AllArgsConstructor
 @Data
 public class UserDto {
 

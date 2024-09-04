@@ -53,4 +53,29 @@ public class UserServiceTest {
     // Verify the interaction with the mock repository
     verify(userRepository, times(1)).findAll();
   }
+
+  @DisplayName("Should successfully add a new user")
+  void addUser() {
+    // Create a User instance
+    User user = new User("Jane Smith", "jane.smith@example.com", "password456", "janesmith");
+
+    // Create a UserDto instance using the all-args constructor
+    UserCreationDto userCreationDto = new UserCreationDto(user.getFullName(), user.getEmail(),
+        user.getUsername(),
+        user.getPassword());
+
+    // Define behavior of the mock repository
+    when(userRepository.save(user)).thenReturn(user);
+
+    // Call the method to test
+    UserDto result = userService.addUser(userCreationDto);
+
+    // Verify that the returned UserDto matches the input UserDto
+    assertEquals(user.getFullName(), result.getFullName());
+    assertEquals(user.getEmail(), result.getEmail());
+    assertEquals(user.getUsername(), result.getUsername());
+
+    // Verify the interaction with the mock repository
+    verify(userRepository, times(1)).save(user);
+  }
 }
