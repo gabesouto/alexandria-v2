@@ -1,22 +1,24 @@
 package com.alexandria.controller;
 
-import com.alexandria.model.entity.*;
+import com.alexandria.dto.*;
 import com.alexandria.service.*;
 import java.util.*;
-import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
 public class UserController {
 
-  @Autowired
-  private UserService userService;
+  private final UserService userService;
 
-  @GetMapping
-  public List<User> getUsers() {
-    return userService.getUsers();
+  public UserController(UserService userService) {
+    this.userService = userService;
   }
 
+  @GetMapping
+  public ResponseEntity<List<UserDto>> getUsers() {
+    return ResponseEntity.ok(this.userService.getUsers());
+  }
 
 }
