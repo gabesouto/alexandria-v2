@@ -3,6 +3,7 @@ package com.alexandria.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import com.alexandria.dto.*;
 import com.alexandria.model.entity.*;
 import com.alexandria.model.repository.*;
 import java.util.*;
@@ -16,6 +17,7 @@ public class UserServiceTest {
 
   @Mock
   private UserRepository userRepository;
+
 
   private UserService userService;
 
@@ -36,7 +38,7 @@ public class UserServiceTest {
     when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
 
     // Call the method to test
-    List<User> result = userService.getUsers();
+    List<UserDto> result = userService.getUsers();
 
     // Verify the size of the returned list
     assertEquals(2, result.size(), "The result list should contain 2 users");
