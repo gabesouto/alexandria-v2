@@ -1,6 +1,5 @@
 package com.alexandria.model.entity;
 
-import jakarta.persistence.Version;
 import jakarta.persistence.*;
 import java.io.*;
 import java.util.*;
@@ -13,9 +12,6 @@ import org.springframework.data.jpa.domain.support.*;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity<ID> implements Serializable {
 
-  @Version
-  @Column(nullable = false)
-  protected Integer version;
 
   @Column
   @CreatedBy

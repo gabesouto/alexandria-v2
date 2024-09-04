@@ -4,7 +4,7 @@ import com.alexandria.model.entity.*;
 import java.util.*;
 import org.springframework.data.domain.*;
 
-public interface CrudService<T extends BaseEntity<ID>, ID> {
+public interface CrudService<DTO, T extends BaseEntity<ID>, ID> {
 
   List<T> findAll();
 
@@ -27,4 +27,10 @@ public interface CrudService<T extends BaseEntity<ID>, ID> {
   void deleteAll();
 
   long count();
+
+  List<DTO> convertToListDto(List<T> elements);
+
+  DTO convertToDetailDto(T element);
+
+  T convertToModel(DTO dto);
 }
