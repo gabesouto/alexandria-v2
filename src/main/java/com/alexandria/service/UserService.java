@@ -21,6 +21,11 @@ public class UserService extends CrudServiceImpl<UserRepository, User, UUID, Use
 
   }
 
+  public UserDto addUser(User user) {
+    User newUSer = createElement(user);
+    return convertToDetailDto(newUSer);
+  }
+
   @Override
   public List<UserDto> convertToListDto(List<User> users) {
     return users.stream().map(user -> modelMapper.map(user, UserDto.class))
@@ -28,8 +33,8 @@ public class UserService extends CrudServiceImpl<UserRepository, User, UUID, Use
   }
 
   @Override
-  public UserDto convertToDetailDto(User element) {
-    return null;
+  public UserDto convertToDetailDto(User user) {
+    return modelMapper.map(user, UserDto.class);
   }
 
   @Override
