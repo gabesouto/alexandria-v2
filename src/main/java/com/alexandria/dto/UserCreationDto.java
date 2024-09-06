@@ -4,8 +4,9 @@ package com.alexandria.dto;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class UserCreationDto {
 
   @NotBlank(message = "Full name is mandatory")

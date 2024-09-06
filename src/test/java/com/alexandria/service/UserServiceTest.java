@@ -15,25 +15,23 @@ import org.mockito.junit.jupiter.*;
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
+  User user1 = new User("John Doe", "john.doe@example.com", "password456", "johndoe");
+  User user2 = new User("Jane Smith", "jane.smith@example.com", "password456", "janesmith");
+
   @Mock
   private UserRepository userRepository;
-
-
   private UserService userService;
 
   @BeforeEach
   void setUp() {
     // Inject the mock repository via the constructor
     userService = new UserService(userRepository);
+
   }
 
   @Test
   @DisplayName("Should return all users without passwords")
   void getUsers() {
-
-    User user1 = new User("John Doe", "john.doe@example.com", "password456", "johndoe");
-    User user2 = new User("Jane Smith", "jane.smith@example.com", "password456", "janesmith");
-
     // Define behavior of the mock repository
     when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
 
@@ -57,22 +55,41 @@ public class UserServiceTest {
   @Test
   @DisplayName("Should successfully add a new user")
   void addUser() {
-    // Create a User instance
-    User user = new User("Jane Smith", "jane.smith@example.com", "password456", "janesmith");
-
     // Define behavior of the mock repository
-    when(userRepository.save(user)).thenReturn(user);
+    when(userRepository.save(user1)).thenReturn(user1);
+
+    UserCreationDto userCreationDto = userService.convertTo(user1, UserCreationDto.class);
 
     // Call the method to test
-    UserDto result = userService.addUser(user);
+    UserDto result = userService.addUser(userCreationDto);
 
     // Verify that the returned UserDto matches the input UserDto
-    assertEquals(user.getFullName(), result.getFullName());
-    assertEquals(user.getEmail(), result.getEmail());
-    assertEquals(user.getUsername(), result.getUsername());
+    assertEquals(user1.getFullName(), result.getFullName());
+    assertEquals(user1.getEmail(), result.getEmail());
+    assertEquals(user1.getUsername(), result.getUsername());
 
     // Verify the interaction with the mock repository
-    verify(userRepository, times(1)).save(user);
+    verify(userRepository, times(1)).save(user1);
+  }
+
+  @Test
+  @DisplayName("Should successfully update a user")
+  void updateUser() {
+
+    UserDto payload = new UserDto(user2.getId(), "jane the smith", "janethesmith@example.com",
+        "janeTHEsmith", user2.getCreatedAt());
+
+    when(userRepository.findById(user2.getId())).thenReturn(Optional.ofNullable(user2));
+
+    UserDto result = userService.updateUser(payload);
+
+    when(userRepository.findById(user2.getId())).thenReturn(Optional.ofNullable(user2));
+
+    assertEquals(user2.getFullName(), result.getFullName());
+    assertEquals(user2.getEmail(), result.getEmail());
+    assertEquals(user2.getUsername(), result.getUsername());
+
+    verify(userRepository, times(1)).save(user1);
   }
 
 }

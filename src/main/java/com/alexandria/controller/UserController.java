@@ -1,7 +1,6 @@
 package com.alexandria.controller;
 
 import com.alexandria.dto.*;
-import com.alexandria.model.entity.*;
 import com.alexandria.service.*;
 import java.util.*;
 import org.springframework.http.*;
@@ -24,10 +23,8 @@ public class UserController {
 
   @PostMapping("create")
   public ResponseEntity<UserDto> postUser(@RequestBody UserCreationDto userCreationDto) {
-    User newUser = new User(userCreationDto.getFullName(), userCreationDto.getEmail(),
-        userCreationDto.getPassword(), userCreationDto.getUsername());
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(newUser));
+    return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(userCreationDto));
   }
 
 }

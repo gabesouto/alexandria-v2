@@ -9,6 +9,8 @@ import lombok.*;
 @Data
 public class UserDto {
 
+  private UUID Id;
+
   private String fullName;
 
   private String email;

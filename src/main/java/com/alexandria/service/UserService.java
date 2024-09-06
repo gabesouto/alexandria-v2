@@ -21,10 +21,15 @@ public class UserService extends CrudServiceImpl<UserRepository, User, UUID, Use
 
   }
 
-  public UserDto addUser(User user) {
-    User newUSer = createElement(user);
-    return convertToDetailDto(newUSer);
+  public UserDto addUser(UserCreationDto payload) {
+    User newUser = convertTo(payload, User.class);
+    createElement(newUser);
+    return convertTo(newUser, UserDto.class);
   }
+
+//  public UserDto updateUser(UserDto){
+//    Optional<User>
+//  }
 
   @Override
   public List<UserDto> convertToListDto(List<User> users) {
@@ -37,8 +42,5 @@ public class UserService extends CrudServiceImpl<UserRepository, User, UUID, Use
     return modelMapper.map(user, UserDto.class);
   }
 
-  @Override
-  public User convertToModel(UserDto userDto) {
-    return null;
-  }
+
 }
