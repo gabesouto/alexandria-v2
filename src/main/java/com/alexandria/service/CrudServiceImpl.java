@@ -96,5 +96,8 @@ public abstract class CrudServiceImpl<L extends JpaRepository<T, ID>, T extends 
   public abstract DTO convertToDetailDto(T element);
 
   @Override
-  public abstract T convertToModel(DTO dto);
+  public <S, D> D convertTo(S sourceDto, Class<D> destinationType) {
+    return modelMapper.map(sourceDto, destinationType);
+  }
+
 }

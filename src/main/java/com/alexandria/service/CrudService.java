@@ -32,5 +32,5 @@ public interface CrudService<DTO, T extends BaseEntity<ID>, ID> {
 
   DTO convertToDetailDto(T element);
 
-  T convertToModel(DTO dto);
+  <S, D> D convertTo(S source, Class<D> destinationType);
 }
