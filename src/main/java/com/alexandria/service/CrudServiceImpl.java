@@ -1,6 +1,7 @@
 package com.alexandria.service;
 
 import com.alexandria.model.entity.*;
+import jakarta.persistence.*;
 import java.util.*;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
@@ -52,12 +53,14 @@ public abstract class CrudServiceImpl<L extends JpaRepository<T, ID>, T extends 
   }
 
   @Override
-  public Optional<T> updateElement(ID id, T element) {
-    if (repository.existsById(id)) {
-      T updatedEntity = repository.save(element);
-      return Optional.of(updatedEntity);
-    }
-    return Optional.empty();
+  public Optional<T> updateElement(ID id, DTO element) {
+
+    T existingEntity = repository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+
+    modelMapper.map(element, existingEntity);
+
+    return Optional.of(repository.save(existingEntity));
   }
 
   @Override

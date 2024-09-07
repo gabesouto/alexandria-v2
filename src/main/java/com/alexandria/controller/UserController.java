@@ -27,4 +27,9 @@ public class UserController {
     return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(userCreationDto));
   }
 
+  @PutMapping("update")
+  public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
+    return ResponseEntity.ok(this.userService.updateUser(userDto));
+  }
+
 }

@@ -18,7 +18,7 @@ public interface CrudService<DTO, T extends BaseEntity<ID>, ID> {
 
   List<T> createElements(List<T> elements);
 
-  Optional<T> updateElement(ID id, T element);
+  Optional<T> updateElement(ID id, DTO element);
 
   boolean deleteElement(ID id);
 

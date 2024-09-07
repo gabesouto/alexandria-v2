@@ -27,9 +27,11 @@ public class UserService extends CrudServiceImpl<UserRepository, User, UUID, Use
     return convertTo(newUser, UserDto.class);
   }
 
-//  public UserDto updateUser(UserDto){
-//    Optional<User>
-//  }
+
+  public UserDto updateUser(UserDto payload) {
+
+    return convertTo(updateElement(payload.getId(), payload), UserDto.class);
+  }
 
   @Override
   public List<UserDto> convertToListDto(List<User> users) {
