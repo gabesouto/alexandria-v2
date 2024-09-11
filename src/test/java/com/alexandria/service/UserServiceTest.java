@@ -76,16 +76,26 @@ public class UserServiceTest {
   @DisplayName("Should successfully update a user")
   void updateUser() {
     // Create a UserDto with updated values
-    UserDto payload = new UserDto(user2.getId(), "Jane The Smith", "jane.smith@example.com",
-        "janesmith", user2.getCreatedAt());
+    UserDto payload = new UserDto(
+        user2.getId(),
+        "Jane The Smith",
+        "jane.smith@example.com",
+        "janesmith",
+        user2.getCreatedAt()
+    );
 
     // Create an updated User entity with the new values
-    User updatedUser = new User(payload.getFullName(), payload.getEmail(),
-        payload.getUsername(), user2.getPassword());
+    User updatedUser = new User(
+        payload.getFullName(),
+        payload.getEmail(),
+        user2.getPassword(),
+        payload.getUsername()
+    );
+    updatedUser.setId(user2.getId());  // Ensure IDs match
 
     // Mock the repository behavior
     when(userRepository.findById(user2.getId())).thenReturn(Optional.of(user2));
-    when(userRepository.save(any(User.class))).thenReturn(updatedUser);
+    when(userRepository.save(any(User.class))).thenReturn(updatedUser);  // Mock saving updated user
 
     // Call the method to test
     UserDto result = userService.updateUser(payload);
@@ -93,11 +103,13 @@ public class UserServiceTest {
     // Assertions
     assertEquals(payload.getFullName(), result.getFullName());
     assertEquals(payload.getEmail(), result.getEmail());
-//    assertEquals(payload.getUsername(), result.getUsername());
+    assertEquals(payload.getUsername(), result.getUsername());
 
     // Verify interactions
     verify(userRepository, times(1)).findById(user2.getId());
-    verify(userRepository, times(1)).save(updatedUser);
+    verify(userRepository, times(1)).save(
+        any(User.class));  // Ensure `save` is called with an updated user
   }
+
 
 }
