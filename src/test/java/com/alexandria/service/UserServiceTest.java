@@ -102,14 +102,13 @@ public class UserServiceTest {
   @Test
   @DisplayName("Should delete user successfully")
   void deleteUser_success() {
-
     UUID userId = user2.getId();
-    when(userRepository.findById(userId)).thenReturn(Optional.of(user2));
+    when(userRepository.existsById(userId)).thenReturn(true);
 
-    userService.deleteUser(userId);
+    assertDoesNotThrow(() -> userService.deleteUser(userId));
 
     verify(userRepository, times(1)).deleteById(userId);
-    verify(userRepository, times(1)).findById(userId);
+    verify(userRepository, times(1)).existsById(userId);
   }
 
 
