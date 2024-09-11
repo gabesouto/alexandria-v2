@@ -33,6 +33,10 @@ public class UserService extends CrudServiceImpl<UserRepository, User, UUID, Use
     return convertTo(updateElement(payload.getId(), payload), UserDto.class);
   }
 
+  public void deleteUser(UUID id) {
+    deleteElement(id);
+  }
+
   @Override
   public List<UserDto> convertToListDto(List<User> users) {
     return users.stream().map(user -> modelMapper.map(user, UserDto.class))

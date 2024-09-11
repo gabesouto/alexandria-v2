@@ -69,7 +69,7 @@ public abstract class CrudServiceImpl<L extends JpaRepository<T, ID>, T extends 
       repository.deleteById(id);
       return true;
     }
-    return false;
+    throw new EntityNotFoundException("Entity not found");
   }
 
   @Override

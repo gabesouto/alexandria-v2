@@ -21,15 +21,21 @@ public class UserController {
     return ResponseEntity.ok(this.userService.getUsers());
   }
 
-  @PostMapping("create")
+  @PostMapping
   public ResponseEntity<UserDto> postUser(@RequestBody UserCreationDto userCreationDto) {
 
     return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(userCreationDto));
   }
 
-  @PutMapping("update")
+  @PutMapping
   public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
     return ResponseEntity.ok(this.userService.updateUser(userDto));
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
+    this.userService.deleteUser(id);
+    return ResponseEntity.noContent().build();
   }
 
 }
