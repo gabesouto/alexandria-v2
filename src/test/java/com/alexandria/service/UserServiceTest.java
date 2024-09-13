@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import com.alexandria.dto.*;
 import com.alexandria.model.entity.*;
+import com.alexandria.model.enums.*;
 import com.alexandria.model.repository.*;
 import java.util.*;
 import org.junit.jupiter.api.*;
@@ -15,8 +16,10 @@ import org.mockito.junit.jupiter.*;
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
-  User user1 = new User("John Doe", "john.doe@example.com", "password456", "johndoe");
-  User user2 = new User("Jane Smith", "jane.smith@example.com", "password456", "janesmith");
+  User user1 = new User("John Doe", "john.doe@example.com", "password456", "johndoe",
+      UserRole.ADMIN);
+  User user2 = new User("Jane Smith", "jane.smith@example.com", "password456", "janesmith",
+      UserRole.USER);
 
   @Mock
   private UserRepository userRepository;
@@ -81,7 +84,8 @@ public class UserServiceTest {
         payload.getFullName(),
         payload.getEmail(),
         user2.getPassword(),
-        payload.getUsername()
+        payload.getUsername(),
+        user2.getRole()
     );
     updatedUser.setId(user2.getId());
 
