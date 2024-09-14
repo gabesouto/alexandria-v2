@@ -1,6 +1,7 @@
 package com.alexandria.dto;
 
 
+import com.alexandria.model.enums.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -17,6 +18,9 @@ public class UserCreationDto {
 
   @NotBlank(message = "Username is mandatory")
   private String username;
+
+  @NotBlank(message = "Role is mandatory")
+  private UserRole role;
 
   @NotBlank(message = "Password is mandatory")
   @Size(min = 8, message = "Password should be at least 8 characters long")

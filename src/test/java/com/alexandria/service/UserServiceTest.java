@@ -55,7 +55,7 @@ public class UserServiceTest {
   @DisplayName("Should successfully add a new user")
   void addUser() {
 
-    when(userRepository.save(user1)).thenReturn(user1);
+    when(userRepository.save(any(User.class))).thenReturn(user1);
 
     UserCreationDto userCreationDto = userService.convertTo(user1, UserCreationDto.class);
 

@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.*;
 @Table(name = "users")
 public class User extends IdentityGenerator<UUID> implements UserDetails {
 
-
   @Column(nullable = false)
   private String fullName;
 
@@ -41,10 +40,6 @@ public class User extends IdentityGenerator<UUID> implements UserDetails {
     return List.of(new SimpleGrantedAuthority("ROLE_USER"));
   }
 
-  @Override
-  public String getUsername() {
-    return "login";
-  }
 
   @Override
   public boolean isAccountNonExpired() {
