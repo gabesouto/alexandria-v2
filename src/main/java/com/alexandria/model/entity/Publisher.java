@@ -17,4 +17,7 @@ public class Publisher extends IdentityGenerator<UUID> {
   @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
   private List<Book> books;
 
+  public Publisher(String name) {
+    this.name = name;
+  }
 }

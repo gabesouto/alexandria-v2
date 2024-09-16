@@ -21,4 +21,7 @@ public class Genre extends IdentityGenerator<UUID> {
   )
   List<Book> books = new ArrayList<>();
   private String name;
+  public Genre(String name) {
+    this.name = name;
+  }
 }

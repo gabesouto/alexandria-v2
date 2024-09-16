@@ -17,4 +17,7 @@ public class Author extends IdentityGenerator<UUID> {
   @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Book> books;
 
+  public Author(String fullName) {
+    this.fullName = fullName;
+  }
 }
