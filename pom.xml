@@ -26,16 +26,6 @@
     </dependency>
     <dependency>
       <artifactId>spring-boot-starter-security</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>spring-security-config</artifactId>
-          <groupId>org.springframework.security</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spring-security-web</artifactId>
-          <groupId>org.springframework.security</groupId>
-        </exclusion>
-      </exclusions>
       <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
@@ -64,6 +54,13 @@
       <groupId>org.springframework.boot</groupId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <artifactId>java-jwt</artifactId>
+      <groupId>com.auth0</groupId>
+      <version>4.4.0</version>
+    </dependency>
+
     <dependency>
       <artifactId>spring-security-test</artifactId>
       <groupId>org.springframework.security</groupId>
@@ -78,6 +75,11 @@
       <artifactId>spring-boot-docker-compose</artifactId>
       <groupId>org.springframework.boot</groupId>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <artifactId>jjwt</artifactId>
+      <groupId>io.jsonwebtoken</groupId>
+      <version>0.9.1</version>
     </dependency>
     <dependency>
       <artifactId>mockito-inline</artifactId>
