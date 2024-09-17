@@ -1,6 +1,7 @@
 package com.alexandria.model.entity;
 
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import java.util.*;
 import lombok.*;
@@ -19,8 +20,10 @@ public class Genre extends IdentityGenerator<UUID> {
       joinColumns = @JoinColumn(name = "genre_id"),
       inverseJoinColumns = @JoinColumn(name = "book_id")
   )
+  @JsonIgnore
   List<Book> books = new ArrayList<>();
   private String name;
+
   public Genre(String name) {
     this.name = name;
   }

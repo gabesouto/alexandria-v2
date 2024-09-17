@@ -15,6 +15,7 @@ public class Book extends IdentityGenerator<UUID> {
   private String title;
   private String authorName;
   private Date publishedDate;
+  private String publisherName;
 
   @ManyToOne
   @JoinColumn(name = "author_id")
