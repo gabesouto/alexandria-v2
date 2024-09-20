@@ -12,9 +12,9 @@ import org.springframework.data.jpa.repository.*;
 public abstract class CrudServiceImpl<L extends JpaRepository<T, ID>, T extends BaseEntity<ID>, ID, DTO>
     implements CrudService<DTO, T, ID> {
 
-  @Autowired
-  protected ModelMapper modelMapper;
   protected L repository;
+  @Autowired
+  ModelMapper modelMapper;
 
   @Autowired
   public CrudServiceImpl(L repository) {
