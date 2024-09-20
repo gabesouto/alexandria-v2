@@ -12,6 +12,7 @@ public class BookDto {
   private String authorName;
   private Date publishedDate;
   private String publisherName;
+  private List<String> bookGenres = new ArrayList<>();
 
 
 }

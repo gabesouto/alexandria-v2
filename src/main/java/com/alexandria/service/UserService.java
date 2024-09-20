@@ -5,14 +5,15 @@ import com.alexandria.model.entity.*;
 import com.alexandria.model.repository.*;
 import java.util.*;
 import java.util.stream.*;
+import org.modelmapper.*;
 import org.springframework.stereotype.*;
 
 @Service
 public class UserService extends CrudServiceImpl<UserRepository, User, UUID, UserDto> {
 
 
-  public UserService(UserRepository repository) {
-    super(repository);
+  public UserService(UserRepository repository, ModelMapper modelMapper) {
+    super(repository, modelMapper);
   }
 
   public List<UserDto> getUsers() {

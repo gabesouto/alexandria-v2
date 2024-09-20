@@ -4,21 +4,18 @@ import com.alexandria.dto.*;
 import com.alexandria.model.entity.*;
 import com.alexandria.model.repository.*;
 import java.util.*;
-import java.util.stream.*;
 import org.modelmapper.*;
 import org.springframework.stereotype.*;
 
 @Service
 public class BookService extends CrudServiceImpl<BookRepository, Book, UUID, BookDto> {
 
-  private final ModelMapper modelMapper;
 
   // Constructor that accepts both BookRepository and ModelMapper
   public BookService(BookRepository repository, ModelMapper modelMapper) {
-    super(repository);
-    this.modelMapper = modelMapper;
-  }
+    super(repository, modelMapper);
 
+  }
 
   public List<BookDto> getBooks() {
     List<Book> books = findAll();
@@ -31,8 +28,13 @@ public class BookService extends CrudServiceImpl<BookRepository, Book, UUID, Boo
 
   @Override
   public List<BookDto> convertToListDto(List<Book> books) {
-    return books.stream().map(book -> modelMapper.map(book, BookDto.class))
-        .collect(Collectors.toList());
+    return books.stream().map(book -> {
+      BookDto bookDto = modelMapper.map(book, BookDto.class);
+      bookDto.setBookGenres(book.getGenres().stream()
+          .map(Genre::getName) // Assuming Genre has a getName() method
+          .toList());
+      return bookDto;
+    }).toList();
   }
 
   @Override
