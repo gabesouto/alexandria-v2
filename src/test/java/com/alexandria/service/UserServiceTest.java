@@ -12,6 +12,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
 import org.mockito.*;
 import org.mockito.junit.jupiter.*;
+import org.modelmapper.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -25,10 +26,14 @@ public class UserServiceTest {
   private UserRepository userRepository;
   private UserService userService;
 
+  @Mock
+  private ModelMapper modelMapper;
+
+
   @BeforeEach
   void setUp() {
 
-    userService = new UserService(userRepository);
+    userService = new UserService(userRepository, modelMapper);
 
   }
 
