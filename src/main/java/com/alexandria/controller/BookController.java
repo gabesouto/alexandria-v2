@@ -2,6 +2,7 @@ package com.alexandria.controller;
 
 import com.alexandria.dto.*;
 import com.alexandria.service.*;
+import jakarta.validation.*;
 import java.util.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class BookController {
   }
 
   @PostMapping
-  public ResponseEntity<BookDto> postBook(@RequestBody CreateBookRequestDto book) {
+  public ResponseEntity<BookDto> postBook(@Valid @RequestBody CreateBookRequestDto book) {
     return ResponseEntity.ok(this.bookService.createBook(book));
   }
 
