@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.*;
 
 public interface AuthorRepository extends JpaRepository<Author, UUID> {
 
+  Optional<Author> findByFullName(String fullName);
 }
