@@ -1,7 +1,6 @@
 package com.alexandria.controller;
 
 import com.alexandria.dto.*;
-import com.alexandria.model.entity.*;
 import com.alexandria.service.*;
 import java.util.*;
 import org.springframework.http.*;
@@ -23,7 +22,7 @@ public class BookController {
   }
 
   @PostMapping
-  public ResponseEntity<Book> postBook(@RequestBody Book book) {
-    return ResponseEntity.ok(this.bookService.postBook(book));
+  public ResponseEntity<BookDto> postBook(@RequestBody CreateBookRequest book) {
+    return ResponseEntity.ok(this.bookService.createBook(book));
   }
 }

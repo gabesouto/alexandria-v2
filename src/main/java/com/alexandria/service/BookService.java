@@ -11,10 +11,19 @@ import org.springframework.stereotype.*;
 public class BookService extends CrudServiceImpl<BookRepository, Book, UUID, BookDto> {
 
 
-  // Constructor that accepts both BookRepository and ModelMapper
-  public BookService(BookRepository repository, ModelMapper modelMapper) {
-    super(repository, modelMapper);
+  private final GenreRepository genreRepository;
+  private AuthorService authorService;
+  private PublisherService publisherService;
 
+  public BookService(BookRepository repository,
+      ModelMapper modelMapper,
+      AuthorService authorService,
+      GenreRepository genreRepository,
+      PublisherService publisherService) {
+    super(repository, modelMapper);
+    this.authorService = authorService;
+    this.genreRepository = genreRepository;
+    this.publisherService = publisherService;
   }
 
   public List<BookDto> getBooks() {
@@ -22,8 +31,19 @@ public class BookService extends CrudServiceImpl<BookRepository, Book, UUID, Boo
     return convertToListDto(books);
   }
 
-  public Book postBook(Book book) {
-    return createElement(book);
+  public BookDto createBook(CreateBookRequest book) {
+    Author author = authorService.createOrFindAuthor(book.getAuthorName());
+
+    Publisher publisher = publisherService.createOrFindPublisher(book.getPublisherName());
+
+    List<Genre> genres = genreRepository.findAllById(book.getGenreIds());
+
+    Book newBook = new Book(book.getTitle(), author, new Date(), publisher, genres);
+    newBook.setGenres(genres);
+
+    createElement(newBook);
+
+    return convertToDetailDto(newBook);
   }
 
   @Override
@@ -38,7 +58,7 @@ public class BookService extends CrudServiceImpl<BookRepository, Book, UUID, Boo
   }
 
   @Override
-  public BookDto convertToDetailDto(Book element) {
-    return null;
+  public BookDto convertToDetailDto(Book book) {
+    return modelMapper.map(book, BookDto.class);
   }
 }
