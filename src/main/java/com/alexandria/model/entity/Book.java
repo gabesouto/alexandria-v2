@@ -25,10 +25,12 @@ public class Book extends IdentityGenerator<UUID> {
   @ManyToMany(mappedBy = "books")
   private List<Genre> genres = new ArrayList<>();
 
-  public Book(String title, String authorName, Date publishedDate, String publisherName) {
-    this.authorName = authorName;
+  public Book(String title, Author author, Date publishedDate, Publisher publisher,
+      List<Genre> genres) {
+    this.author = author;
     this.title = title;
     this.publishedDate = publishedDate;
-    this.publisherName = publisherName;
+    this.publisher = publisher;
+    this.genres = genres;
   }
 }
