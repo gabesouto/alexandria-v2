@@ -76,10 +76,10 @@ public class BookServiceTest {
     when(bookRepository.findAll()).thenReturn(Arrays.asList(book1, book2));
 
     // Mocking the ModelMapper behavior for each book
-    BookDto bookDto1 = new BookDto(book1.getTitle(), book1.getAuthor().getFullName(),
+    BookDto bookDto1 = new BookDto(book1.getTitle(), book1.getId(), book1.getAuthor().getFullName(),
         book1.getPublishedDate(), book1.getPublisher().getName(), getBookGenres(book1));
 
-    BookDto bookDto2 = new BookDto(book2.getTitle(), book2.getAuthor().getFullName(),
+    BookDto bookDto2 = new BookDto(book2.getTitle(), book2.getId(), book2.getAuthor().getFullName(),
         book2.getPublishedDate(), book2.getPublisher().getName(), getBookGenres(book2));
 
     // Tell Mockito to return the correct BookDto when modelMapper.map is called
@@ -106,13 +106,13 @@ public class BookServiceTest {
 
     when(bookRepository.save(any(Book.class))).thenReturn(book1);
 
-    CreateBookRequest createBookRequest = new CreateBookRequest(book1.getTitle(),
+    CreateBookRequestDto createBookRequest = new CreateBookRequestDto(book1.getTitle(),
         getBookGenresIds(book1),
         book1.getAuthor().getFullName(), book1.getPublisher().getName());
 
     // Simulate the addBook method
     // Mocking the ModelMapper behavior for each book
-    BookDto bookDto1 = new BookDto(book1.getTitle(), book1.getAuthor().getFullName(),
+    BookDto bookDto1 = new BookDto(book1.getTitle(), book1.getId(), book1.getAuthor().getFullName(),
         book1.getPublishedDate(), book1.getPublisher().getName(), getBookGenres(book1));
 
     when(modelMapper.map(any(Book.class), eq(BookDto.class))).thenReturn(bookDto1);
@@ -124,5 +124,16 @@ public class BookServiceTest {
     assertEquals(book1.getAuthor().getFullName(), result.getAuthorName());
 
     verify(bookRepository, times(1)).save(any(Book.class));
+  }
+
+  @Test
+  @DisplayName("Should delete a book")
+  void deleteBook() {
+    when(bookRepository.existsById(book1.getId())).thenReturn(true);
+
+    assertDoesNotThrow(() -> bookService.deleteBook(book1.getId()));
+
+    verify(bookRepository, times(1)).deleteById(book1.getId());
+    verify(bookRepository, times(1)).existsById(book1.getId());
   }
 }
