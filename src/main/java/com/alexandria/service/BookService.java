@@ -31,7 +31,7 @@ public class BookService extends CrudServiceImpl<BookRepository, Book, UUID, Boo
     return convertToListDto(books);
   }
 
-  public BookDto createBook(CreateBookRequest book) {
+  public BookDto createBook(CreateBookRequestDto book) {
     Author author = authorService.createOrFindAuthor(book.getAuthorName());
 
     Publisher publisher = publisherService.createOrFindPublisher(book.getPublisherName());
@@ -44,6 +44,10 @@ public class BookService extends CrudServiceImpl<BookRepository, Book, UUID, Boo
     createElement(newBook);
 
     return convertToDetailDto(newBook);
+  }
+
+  public void deleteBook(UUID bookId) {
+    deleteElement(bookId);
   }
 
   @Override

@@ -22,7 +22,13 @@ public class BookController {
   }
 
   @PostMapping
-  public ResponseEntity<BookDto> postBook(@RequestBody CreateBookRequest book) {
+  public ResponseEntity<BookDto> postBook(@RequestBody CreateBookRequestDto book) {
     return ResponseEntity.ok(this.bookService.createBook(book));
+  }
+
+  @DeleteMapping("{bookId}")
+  public ResponseEntity<Void> deleteBook(@PathVariable UUID bookId) {
+    this.bookService.deleteBook(bookId);
+    return ResponseEntity.noContent().build();
   }
 }
