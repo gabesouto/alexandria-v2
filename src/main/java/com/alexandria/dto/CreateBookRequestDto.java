@@ -6,7 +6,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateBookRequest {
+public class CreateBookRequestDto {
 
   private String title;
   private List<UUID> genreIds;

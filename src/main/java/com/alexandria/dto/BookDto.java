@@ -9,6 +9,7 @@ import lombok.*;
 public class BookDto {
 
   private String title;
+  private UUID id;
   private String authorName;
   private Date publishedDate;
   private String publisherName;

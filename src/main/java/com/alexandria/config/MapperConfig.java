@@ -28,6 +28,8 @@ public class MapperConfig {
     protected BookDto convert(Book book) {
       BookDto bookDto = new BookDto();
 
+      bookDto.setId(book.getId());
+
       bookDto.setTitle(book.getTitle());
 
       bookDto.setPublishedDate(book.getPublishedDate());
