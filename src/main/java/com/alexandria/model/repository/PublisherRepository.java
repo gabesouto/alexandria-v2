@@ -4,7 +4,7 @@ import com.alexandria.model.entity.*;
 import java.util.*;
 import org.springframework.data.jpa.repository.*;
 
-public interface AuthorRepository extends JpaRepository<Author, UUID> {
+public interface PublisherRepository extends JpaRepository<Publisher, UUID> {
 
-  Optional<Author> findByFullName(String fullName);
+  Optional<Publisher> findByName(String name);
 }

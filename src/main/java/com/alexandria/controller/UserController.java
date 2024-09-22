@@ -2,6 +2,7 @@ package com.alexandria.controller;
 
 import com.alexandria.dto.*;
 import com.alexandria.service.*;
+import jakarta.validation.*;
 import java.util.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +23,13 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<UserDto> postUser(@RequestBody UserCreationDto userCreationDto) {
+  public ResponseEntity<UserDto> postUser(@Valid @RequestBody UserCreationDto userCreationDto) {
 
     return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(userCreationDto));
   }
 
   @PutMapping
-  public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
+  public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto) {
     return ResponseEntity.ok(this.userService.updateUser(userDto));
   }
 
