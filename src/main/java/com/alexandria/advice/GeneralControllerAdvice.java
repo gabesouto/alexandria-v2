@@ -1,5 +1,6 @@
 package com.alexandria.advice;
 
+import com.alexandria.exception.*;
 import jakarta.persistence.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.*;
@@ -31,6 +32,11 @@ public class GeneralControllerAdvice {
     return ResponseEntity
         .status(HttpStatus.BAD_REQUEST)
         .body(exception.getMessage());
+  }
+
+  @ExceptionHandler(UserAlreadyExistsException.class)
+  public ResponseEntity<String> handleUserAlreadyExists(UserAlreadyExistsException exception) {
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
   }
 
 }
