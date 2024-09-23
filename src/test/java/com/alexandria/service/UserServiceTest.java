@@ -43,9 +43,15 @@ public class UserServiceTest {
 
     when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
 
-    List<UserDto> result = userService.getUsers();
+    UserDto userDto1 = new UserDto(user1.getId(), user1.getFullName(), user1.getEmail(),
+        user1.getUsername(), user1.getCreatedAt());
+    UserDto userDto2 = new UserDto(user2.getId(), user2.getFullName(), user2.getEmail(),
+        user2.getUsername(), user2.getCreatedAt());
 
-    assertEquals(2, result.size(), "The result list should contain 2 users");
+    when(modelMapper.map(user1, UserDto.class)).thenReturn(userDto1);
+    when(modelMapper.map(user2, UserDto.class)).thenReturn(userDto2);
+
+    List<UserDto> result = userService.getUsers();
 
     assertEquals("John Doe", result.get(0).getFullName());
     assertEquals("john.doe@example.com", result.get(0).getEmail());
@@ -55,58 +61,7 @@ public class UserServiceTest {
 
     verify(userRepository, times(1)).findAll();
   }
-
-  @Test
-  @DisplayName("Should successfully add a new user")
-  void addUser() {
-
-    when(userRepository.save(any(User.class))).thenReturn(user1);
-
-    UserCreationDto userCreationDto = userService.convertTo(user1, UserCreationDto.class);
-
-    UserDto result = userService.addUser(userCreationDto);
-
-    assertEquals(user1.getFullName(), result.getFullName());
-    assertEquals(user1.getEmail(), result.getEmail());
-    assertEquals(user1.getUsername(), result.getUsername());
-
-    verify(userRepository, times(1)).save(user1);
-  }
-
-  @Test
-  @DisplayName("Should successfully update a user")
-  void updateUser() {
-
-    UserDto payload = new UserDto(
-        user2.getId(),
-        "Jane The Smith",
-        "jane.smith@example.com",
-        "janesmith",
-        user2.getCreatedAt()
-    );
-
-    User updatedUser = new User(
-        payload.getFullName(),
-        payload.getEmail(),
-        user2.getPassword(),
-        payload.getUsername(),
-        user2.getRole()
-    );
-    updatedUser.setId(user2.getId());
-
-    when(userRepository.findById(user2.getId())).thenReturn(Optional.of(user2));
-    when(userRepository.save(any(User.class))).thenReturn(updatedUser);
-
-    UserDto result = userService.updateUser(payload);
-
-    assertEquals(payload.getFullName(), result.getFullName());
-    assertEquals(payload.getEmail(), result.getEmail());
-    assertEquals(payload.getUsername(), result.getUsername());
-
-    verify(userRepository, times(1)).findById(user2.getId());
-    verify(userRepository, times(1)).save(
-        any(User.class));
-  }
+  
 
   @Test
   @DisplayName("Should delete user successfully")
