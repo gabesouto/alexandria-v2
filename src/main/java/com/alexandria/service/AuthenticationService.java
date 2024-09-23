@@ -37,9 +37,9 @@ public class AuthenticationService extends CrudServiceImpl<UserRepository, User,
         encryptedPassword,
         userCreationDto.getUsername(), UserRole.USER);
 
-    this.repository.save(newUser);
+    ;
 
-    return convertToDetailDto(newUser);
+    return convertToDetailDto(this.repository.save(newUser));
   }
 
   public LoginResponseDto login(AuthenticationDto authenticationDto) {
@@ -58,7 +58,7 @@ public class AuthenticationService extends CrudServiceImpl<UserRepository, User,
   }
 
   @Override
-  public UserDto convertToDetailDto(User element) {
-    return null;
+  public UserDto convertToDetailDto(User user) {
+    return modelMapper.map(user, UserDto.class);
   }
 }
