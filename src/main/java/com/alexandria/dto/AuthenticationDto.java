@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Data
+@AllArgsConstructor
 public class AuthenticationDto {
 
   @Email(message = "Email should be valid")

@@ -3,6 +3,7 @@ package com.alexandria.advice;
 import com.alexandria.exception.*;
 import jakarta.persistence.*;
 import org.springframework.http.*;
+import org.springframework.security.core.*;
 import org.springframework.web.bind.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.*;
@@ -37,6 +38,11 @@ public class GeneralControllerAdvice {
   @ExceptionHandler(UserAlreadyExistsException.class)
   public ResponseEntity<String> handleUserAlreadyExists(UserAlreadyExistsException exception) {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+  }
+
+  @ExceptionHandler(AuthenticationException.class)
+  public ResponseEntity<String> handleAuthenticationException(AuthenticationException exception) {
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
   }
 
 }

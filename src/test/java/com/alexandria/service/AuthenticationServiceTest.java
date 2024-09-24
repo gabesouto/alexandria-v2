@@ -65,5 +65,25 @@ public class AuthenticationServiceTest {
     verify(tokenService).generateToken(mockUser);
   }
 
+  @Test
+  @DisplayName("Should throw AuthenticationException when login fails")
+  void loginShouldThrowAuthenticationException() {
+    AuthenticationDto authenticationDto = new AuthenticationDto("wrong@test.com", "wrongpassword");
+
+    var usernamePassword = new UsernamePasswordAuthenticationToken(authenticationDto.getEmail(),
+        authenticationDto.getPassword());
+    
+    when(authenticationManager.authenticate(usernamePassword))
+        .thenThrow(new AuthenticationException("Invalid credentials") {
+        });
+
+    AuthenticationException exception = assertThrows(AuthenticationException.class, () -> {
+      authenticationService.login(authenticationDto);
+    });
+
+    assertEquals("Invalid credentials", exception.getMessage());
+
+    verify(tokenService, never()).generateToken(any());
+  }
 
 }
