@@ -12,8 +12,8 @@ public class BookService extends CrudServiceImpl<BookRepository, Book, UUID, Boo
 
 
   private final GenreRepository genreRepository;
-  private AuthorService authorService;
-  private PublisherService publisherService;
+  private final AuthorService authorService;
+  private final PublisherService publisherService;
 
   public BookService(BookRepository repository,
       ModelMapper modelMapper,

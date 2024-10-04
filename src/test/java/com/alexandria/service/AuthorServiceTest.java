@@ -3,6 +3,7 @@ package com.alexandria.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import com.alexandria.dto.*;
 import com.alexandria.model.entity.*;
 import com.alexandria.model.repository.*;
 import java.util.*;
@@ -62,6 +63,26 @@ public class AuthorServiceTest {
     // Verify that createElement was called
     verify(authorRepository, times(1)).save(
         newAuthor); // Assuming createElement saves the new author
+  }
+
+  @Test
+  @DisplayName("Should return all authors")
+  void getAuthors() {
+
+    AuthorDto authorDto1 = new AuthorDto(author1.getFullName());
+
+    AuthorDto authorDto2 = new AuthorDto(author2.getFullName());
+    
+    when(authorRepository.findAll()).thenReturn(Arrays.asList(author1, author2));
+    when(modelMapper.map(author1, AuthorDto.class)).thenReturn(authorDto1);
+    when(modelMapper.map(author2, AuthorDto.class)).thenReturn(authorDto2);
+
+    List<AuthorDto> result = authorService.getAuthors();
+
+    assertEquals(2, result.size(), "The result list should contain 2 authors");
+
+    assertEquals(author1.getFullName(), result.get(0).getFullName());
+    assertEquals(author2.getFullName(), result.get(1).getFullName());
   }
 
 }
