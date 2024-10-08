@@ -2,12 +2,12 @@
 
 ## Summary
 - [Overview](#overview)
-- [Why I Built This?](#why-i-built-this?)
+- [Why I Built This?](#why-i-built-this)
 - [Methodologies Used](#methodologies-used)
 - [Tech Stack](#tech-stack)
 - [API](#api)
-- [Autenticação](#autenticação-e-uso-da-api)
-- [Rodando Localmente o Projeto](#rodando-localmente-o-projeto)
+- [Authentication and API Usage](#authentication-and-api-usage)
+- [Running the Project Locally](#running-the-project-locally)
 
 ## Overview
 
