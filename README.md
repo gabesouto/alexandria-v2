@@ -5,9 +5,9 @@
 - [Why I Built This?](#why-i-built-this)
 - [Methodologies Used](#methodologies-used)
 - [Tech Stack](#tech-stack)
-- [API](#api)
+- [API Doc](#api-doc)
 - [Authentication and API Usage](#authentication-and-api-usage)
-- [Running the Project Locally](#running-the-project-locally)
+- [Running the Project Locally](#running-locally)
 
 ## Overview
 
@@ -40,7 +40,7 @@ I'm always striving to improve my coding skills, and I'm currently focused on Ja
 - **Flyway**: A migration tool used to manage and version database schemas, facilitating data manipulation with a schema-based approach.
 
 
-## API
+## API Doc
 
 The API was documented with Swagger to facilitate the exploration and testing of the endpoints. The documentation can be accessed at localhost:8080/api. It includes details about the available endpoints, expected parameters, and response formats, providing a clear and comprehensive view of the API's functionalities.
 
@@ -51,42 +51,26 @@ Some routes are restricted and can only be accessed by users with the `admin` ro
 To obtain a JWT token, the user must go through the authentication routes provided by the API, such as the login route. The JWT token must be included in the `Authorization` header of requests, in the format `Bearer <token>`.
 
 
-## Rodando localmente o projeto
+## Running locally
 
-1. Clone o repositório
-
-    ```bash
-   git clone git@github.com:gabesouto/user-storage.git
-    ```
-
-2. Navegue para o repositório
+1. Clone the repository
 
     ```bash
-    cd user-storage
+   git clone git@github.com:gabesouto/alexandria-v2.git
     ```
 
-3. Instale as depêndencias
+2. go to the project's folder
 
     ```bash
-    npm run install:apps
+    cd alexandria-v2
     ```
-4. Adicione as suas credencias do PostgreSQL ao arquivo <Strong>.env-example</Strong> e renomeie ele para <Strong>.env</Strong>
 
-5. Inicia o banco de dados com o docker compose. Dependendo da sua versão do docker compose talvez seja necessário utilizar `docker compose` ao invés de `docker-compose`
+3. Open the **.env-example** file and add your PostgreSQL credentials. Then, rename the file to **.env**
+
+
+4. Start the applicattion
 
     ```bash
-    cd backend && npm run db:reset
+    mvn spring-boot:run
     ```
 
-6. Inicie a aplicação em dois terminais seperados, um para cada serviço.
-   /backend
-
-    ```bash
-    npm run dev
-    ```
-7. Inicie a aplicação no frontend
-  /frontend
-
-    ```bash
-    npm run dev
-    ```
